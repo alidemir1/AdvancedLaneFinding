@@ -40,7 +40,7 @@ IPMed version of the Input image is given:
 ![IPM Image][image2]
  
 
-## Identifying lane line pixels using sliding windows
+## Identifying Lane Lines
 In order to find the lines, IPMed image is converted into grayscale image. Then Canny operator of the OpenCV library is used. Sobel operator on the X direction is applied and 
 following Sobel operator, Morphology Closing is used to fill the lines which their borders are detected. Filtered image is shown below:
 
