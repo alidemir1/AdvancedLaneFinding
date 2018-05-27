@@ -48,7 +48,7 @@ following Sobel operator, Morphology Closing is used to fill the lines which the
  
 To locate the lines in the filtered image, first I look to the below (near to the car) of the image since occlusion chances (e.g. by other vehicle) are low. I created some band with specified height at bottom of the filtered image.
 I divide band in to two section Left and Right from the center of the band. Summed all values over the Y direction and find indices of the maximum values which belongs to the left and right band. Map this indices back onto the filtered image. 
-Then I looked at the upper of the lane indices found from band with some margin on the X direction, then followed this procedure until the top of the image. Note that indice margin referenced to the previous line indice find on the same side (left or right), references from band only used to find the neighbour upper indices.
+Then I looked at the upper of the lane indices found from band with some margin on the X direction, then followed this procedure until the top of the image. Note that indice margin referenced to the previous line indice found on the same side (left or right), references from band only used to find the neighbour upper indices.
 Lastly using, this indices which belongs to left and right lines. 2nd degree polynomial is fitted onto IPMed image.
 
 ![Lane Finding][image4]
