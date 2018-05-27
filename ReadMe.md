@@ -57,9 +57,7 @@ Lastly using, this indices which belongs to left and right lines. 2nd degree pol
 
 ## Radius of the Curvature of the Road and Offset of the Vehicle From Center of the Lane
 
-The radius of curvature is computed as follows:
-
-The radius of curvature is calculated by R = [(1+(dy/dx)^2 )^3/2]/|d^2y / dx^2|.
+The radius of curvature is calculated by R = $[(1+(dy/dx)^2 )^3/2]/|d^2y / dx^2|$.
 
 The offset from the center of the lane is computed by pixel difference from the width/2 of the image from the lane center which can be easily calculated by (Ypoly(image height - 1) - LeftPoly(image height - 1))/2 + LeftPoly(image height - 1) where LeftPoly and RightPoly are polynomials fitted on the left and right lanes respectively and 'image height - 1' is the input Y value (indice of the bottom row). 
 In order to have these values in meters meter/pixel values should be estimated and new polynomials should be fitted with those values (for more see the code).
