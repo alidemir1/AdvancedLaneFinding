@@ -3,7 +3,7 @@ import numpy as np
 import time
 import LaneDetector as LD
 
-cap = cv.VideoCapture('project_video.mp4')
+cap = cv.VideoCapture('challenge_video.mp4')
 width = cap.get(3)
 height = cap.get(4)
 print(width, height)

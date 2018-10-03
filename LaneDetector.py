@@ -84,7 +84,6 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 	rightLaneIndiceAtBottom = np.argmax(RightKernelOutput) + int(sobelx.shape[1]/2) #* 64 + int(sobelx.shape[1]/2)
 
 	if (lastLeftLaneIndiceAtBottom >= 10 and lastRightLaneIndiceAtBottom <= frame.shape[1] - 10):
-		print("lastLeftLaneIndiceAtBottom, lastRightLaneIndiceAtBottom: ", lastLeftLaneIndiceAtBottom, lastRightLaneIndiceAtBottom)
 		leftLaneIndiceAtBottom = np.argmax(LeftKernelOutput[lastLeftLaneIndiceAtBottom - 5:lastLeftLaneIndiceAtBottom + 5]) + (lastLeftLaneIndiceAtBottom - 5)
 		rightLaneIndiceAtBottom = np.argmax(RightKernelOutput[(lastRightLaneIndiceAtBottom - int(sobelx.shape[1]/2)) - 5:(lastRightLaneIndiceAtBottom  - int(sobelx.shape[1]/2)) + 5]) + ((lastRightLaneIndiceAtBottom - int(sobelx.shape[1]/2)) - 5) + int(sobelx.shape[1]/2)
 
