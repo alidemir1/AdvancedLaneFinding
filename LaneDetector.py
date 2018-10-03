@@ -83,6 +83,12 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 	leftLaneIndiceAtBottom = np.argmax(LeftKernelOutput) #* 64 
 	rightLaneIndiceAtBottom = np.argmax(RightKernelOutput) + int(sobelx.shape[1]/2) #* 64 + int(sobelx.shape[1]/2)
 
+	if (lastLeftLaneIndiceAtBottom >= 10 and lastRightLaneIndiceAtBottom <= frame.shape[1] - 10):
+		print("lastLeftLaneIndiceAtBottom, lastRightLaneIndiceAtBottom: ", lastLeftLaneIndiceAtBottom, lastRightLaneIndiceAtBottom)
+		leftLaneIndiceAtBottom = np.argmax(LeftKernelOutput[lastLeftLaneIndiceAtBottom - 5:lastLeftLaneIndiceAtBottom + 5]) + (lastLeftLaneIndiceAtBottom - 5)
+		rightLaneIndiceAtBottom = np.argmax(RightKernelOutput[(lastRightLaneIndiceAtBottom - int(sobelx.shape[1]/2)) - 5:(lastRightLaneIndiceAtBottom  - int(sobelx.shape[1]/2)) + 5]) + ((lastRightLaneIndiceAtBottom - int(sobelx.shape[1]/2)) - 5) + int(sobelx.shape[1]/2)
+
+
 	if polyVariance >= 0.89:     #frameNum - lastFrameNumPoly <= 300:
 		if np.sum(sobelx[sobelx.shape[0] - kernel.shape[0]:, int(lastLeftLaneIndiceAtBottom - 5): int(lastLeftLaneIndiceAtBottom + 5)]) > box.shape[0]:
 			LeftKernelOutput = np.sum(sobelx[sobelx.shape[0] - kernel.shape[0]:, int(lastLeftLaneIndiceAtBottom - 5): int(lastLeftLaneIndiceAtBottom + 5)], axis = 0)
