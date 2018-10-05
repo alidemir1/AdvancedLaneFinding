@@ -171,6 +171,7 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 				ipmed[k, int(R(k)) - int(roadWidth):int(R(k)),1] = 200	
 				midPointofLane = R(0) - roadWidth/2
 				curvatureFlag = 1
+				
 			#if right lane indices known poorly but left lan indices known well
 			elif len(YL) > 2 and len(YR) <= 2 and roadWidth > 80:
 				ipmed[k, int(L(k)):int(L(k))+6] = (0,0,255)
@@ -239,6 +240,19 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 
 	nonzeros = unipmedComplement != 0
 	frame[nonzeros] = unipmedComplement[nonzeros]
+
+
+
+	indOfGreenAreaIpmed = (ipmed[:,:,1] == 200) * 1
+	indOfGreenArea = cv.warpPerspective(indOfGreenAreaIpmed, M, (roi.shape[1], roi.shape[0]), flags = cv.WARP_INVERSE_MAP + cv.INTER_NEAREST, borderValue = 0)
+
+	print("indOfGreenShape: ", indOfGreenArea.shape)
+	for i in range(0, heightOfRoi - 10, 30):
+		greenAtRow = indOfGreenArea[i,:]
+		firstGreenLocationAtRow = np.argmax(greenAtRow == 1)#[0]
+		shift = frame.shape[0] - heightOfRoi
+		print("firstGreenLocationAtRow: ", firstGreenLocationAtRow)
+		cv.rectangle(frame, (firstGreenLocationAtRow , i - int(30 * i/15) + shift), (firstGreenLocationAtRow + np.sum(greenAtRow), i + shift), (0,200,0), 1)
 
 	#cv.imshow("Frame", frame)
 	#writes frame to a video file
