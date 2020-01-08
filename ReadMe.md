@@ -34,14 +34,15 @@ The steps of this project are as follows:
 I created my own pipeline mainly as follows. There can be little differences in the code. Since I am not giving all operations here (e.g. operations in order to reduce the noise, or how to estimate other line when there is only one of them detected). Input image is illustrated as follows.
 I created and implemented this pipeline over a night, so if there are any catastrophic errors that you observe please let me know. Pipeline is still prone to the noises such as fast light changes, or too noisy backgrounds for applied filters (which are mentioned below).
 
-##Camera Calibration
-Below chessboard image has been used to obtain camera calibration parameters.
+## Camera Calibration
+Below chessboard image has been used to obtain camera calibration parameters and with obtained calibration parameters camera distortion is eliminated.
 
-![Chessboard][image7]
+Chess Board            |  Undistorted Image
+:---------------------:|:-------------------------:
+![Chessboard][image7]  |  ![Undistorted][image6]
 
-With obtained calibration parameters camera distortion is eliminated.
 
-![Undistorted][image6]
+
 
 
 ![Input Image][image1]
