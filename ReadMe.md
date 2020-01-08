@@ -42,8 +42,7 @@ Chess Board            |  Undistorted Image
 ![Chessboard][image7]  |  ![Undistorted][image6]
 
 
-
-
+## Input Image
 
 ![Input Image][image1]
 
