@@ -4,7 +4,7 @@ import numpy as np
 
 ipmMargin = 90 #110 50 90
 
-heightOfRoi = 260 #120 160 260
+heightOfRoi = 200 #120 160 260
 numOfBoxEachLine = 6
 
 
@@ -17,15 +17,12 @@ box = np.ones((int(heightOfRoi/numOfBoxEachLine), 10))
 leftLaneIndices = np.zeros((numOfBoxEachLine))
 rightLaneIndices = np.zeros((numOfBoxEachLine))
 
-def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, lastRightLaneIndiceAtBottom, lastFrameNumL, lastFrameNumR, roadWidth, lastLeftLaneIndicesMean, lastRightLaneIndicesMean, lastLeftLaneIndices, lastRightLaneIndices):
+def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, lastRightLaneIndiceAtBottom, lastFrameNumL, lastFrameNumR, roadWidth, lastLeftLaneIndicesMean, lastRightLaneIndicesMean, lastLeftLaneIndices, lastRightLaneIndices, mtx, dist):
 	midPointofLane = 0.0
 	polyVariance = 0.0
 
-
-
-
-
 	roi = frame[frame.shape[0] - heightOfRoi:int(frame.shape[0]), 0:int(frame.shape[1])] #120 160
+	cv.imshow('ROI', roi)
 
 
 	#kernel is bottom band to find line features at the bottom of the image
@@ -48,7 +45,7 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 
 
 	#convertImageintoGrayScale
-	grayIPM = cv.cvtColor(ipmed, cv.COLOR_BGR2GRAY)
+	grayIPM = cv.cvtColor(ipmed, cv.COLOR_BGR2GRAY)	
 
 	CgrayIPM = cv.Canny(grayIPM, 100,200)
 	#cv.imshow("Canny", CgrayIPM)
@@ -70,6 +67,7 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 	sobelx[sobelx.shape[0] - 25:sobelx.shape[0],:] = 0
 
 	#cv.imshow('MorphBordersRemoved', sobelx)	
+	
 
 
 	kernelOutput = np.sum(sobelx[sobelx.shape[0] - kernel.shape[0]:, :]*kernel, axis = 0)
@@ -248,6 +246,8 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 
 	print("indOfGreenShape: ", indOfGreenArea.shape)
 	for i in range(0, heightOfRoi - 10, 30):
+		if i >= roi.shape[0]:
+			i = roi.shape[0] - 1
 		greenAtRow = indOfGreenArea[i,:]
 		firstGreenLocationAtRow = np.argmax(greenAtRow == 1)#[0]
 		shift = frame.shape[0] - heightOfRoi
