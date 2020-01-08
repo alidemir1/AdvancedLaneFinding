@@ -13,6 +13,7 @@ numOfBoxEachLine = 6
 box = np.ones((int(heightOfRoi/numOfBoxEachLine), 10)) 
 
 
+#out = cv.VideoWriter('output.avi',cv.VideoWriter_fourcc('M','J','P','G'), 30, (1280,720))
 
 leftLaneIndices = np.zeros((numOfBoxEachLine))
 rightLaneIndices = np.zeros((numOfBoxEachLine))
@@ -22,7 +23,7 @@ def laneDetector(frame, frameNum, roadCurvlastTen, lastLeftLaneIndiceAtBottom, l
 	polyVariance = 0.0
 
 	roi = frame[frame.shape[0] - heightOfRoi:int(frame.shape[0]), 0:int(frame.shape[1])] #120 160
-	cv.imshow('ROI', roi)
+	#cv.imshow('ROI', roi)
 
 
 	#kernel is bottom band to find line features at the bottom of the image
